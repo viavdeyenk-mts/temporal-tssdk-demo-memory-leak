@@ -1,0 +1,26 @@
+{
+  "name": "temporal-tssdk-demo-memory-leak",
+  "version": "1.0.0",
+  "description": "Demonstration memory leak of temporal typescript sdk",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "worker": "node src/worker.js",
+    "worker:inspect": "node --inspect src/worker.js",
+    "client": "node src/client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viavdeyenk-mts/temporal-tssdk-demo-memory-leak.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/viavdeyenk-mts/temporal-tssdk-demo-memory-leak/issues"
+  },
+  "homepage": "https://github.com/viavdeyenk-mts/temporal-tssdk-demo-memory-leak#readme",
+  "dependencies": {
+    "temporalio": "^0.22.0"
+  }
+}

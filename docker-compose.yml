@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  pg:
+    image: postgres:10.3-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: temporal
+  temporal:
+    ports:
+      - "7233:7233"
+    image: temporalio/auto-setup:1.15.2
+    restart: always
+    depends_on:
+      - pg
+    environment:
+      - DB=postgresql
+      - DB_PORT=5432
+      - DBNAME=temporal
+      - POSTGRES_USER=postgres
+      - POSTGRES_PWD=postgres
+      - POSTGRES_SEEDS=pg
+      - DYNAMIC_CONFIG_FILE_PATH=/etc/temporal/config.yaml
+    volumes:
+      - ./temporal-config.yaml:/etc/temporal/config.yaml:ro
+  temporal-web:
+    image: temporalio/web:1.15.0
+    restart: always
+    ports:
+      - 8088:8088
+    depends_on:
+      - temporal
+    environment:
+      - TEMPORAL_GRPC_ENDPOINT=temporal:7233
+      - TEMPORAL_PERMIT_WRITE_API=true
+
